@@ -22,14 +22,34 @@ export default function () {
     const $loadingBox = $('.loadingBox'),
       $run = $loadingBox.find('.run');
 
+    const imgList = require('../../result.json'),
+      total = imgList.length;
+    let cur = 0;
+
     // 控制图片加载进度
     const computed = function () {
+      imgList.forEach(item => {
+        let tempImg = new Image;
+        tempImg.src = item;
 
+        tempImg.onload = function () {
+          cur++;
+          runHander();
+          tempImg = null;
+        };
+      });
     };
+
+    const runHander = function () {
+      $run.css('width', `${cur / total * 100}%`);
+    };
+
+
+
     return {
       init() {
         $loadingBox.css('display', 'block');
-
+        computed();
       }
     }
   })();
