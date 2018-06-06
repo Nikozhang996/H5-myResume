@@ -25,7 +25,7 @@ html, body {
 }
 
 .loadingBox {
-  display: block
+  //display: block
   background-color: #000
   .title {
     position: absolute
@@ -37,14 +37,54 @@ html, body {
     text-align: center
     color: #fff
     letter-spacing: .04rem
-    h1{
+    h1 {
       line-height: .75rem
       font-size: .5rem
     }
-    h2{
+    h2 {
       font-size: .26rem
       line-height: .45rem
       margin-top: .2rem
     }
   }
+
+  .progress {
+    position: absolute
+    top: 50%
+    left: 50%
+    margin-left: unit(-4.6 / 2, rem)
+    margin-top: unit(-.3 / 2 + 1, rem)
+    width: 4.6rem
+    height: .3rem
+    background-color: #fff
+    border-radius: unit(0.3 / 2, rem)
+    .run {
+      position: absolute
+      width: 50%
+      height 100%
+      border-radius: unit(0.3 / 2, rem)
+      background: -webkit-linear-gradient(left bottom,
+      #2bb82e 0%,
+      #2bb82e 25%,
+      #74C274 25%,
+      #74C274 50%,
+      #2bb82e 50%,
+      #2bb82e 75%,
+      #74C274 75%,
+      #74C274 100%
+      )
+      background-size: 0.3rem 0.3rem
+      background-position: 0 0
+      animation :loadingMove 1s linear infinite both;
+    }
+  }
 }
+
+  @keyframes loadingMove{
+      0%{
+        background-position: 0 0;
+      }
+    100%{
+      background-position: 0 -.3rem;
+    }
+  }

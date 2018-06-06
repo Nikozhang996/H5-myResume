@@ -16,6 +16,23 @@ export default function () {
     computed();
 
     window.addEventListener('resize', computed, false);
-
   }
+
+  const loadingRender = (function () {
+    const $loadingBox = $('.loadingBox'),
+      $run = $loadingBox.find('.run');
+
+    // 控制图片加载进度
+    const computed = function () {
+
+    };
+    return {
+      init() {
+        $loadingBox.css('display', 'block');
+
+      }
+    }
+  })();
+
+  loadingRender.init();
 }
