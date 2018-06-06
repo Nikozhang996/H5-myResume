@@ -42,6 +42,12 @@ export default function () {
 
     const runHander = function () {
       $run.css('width', `${cur / total * 100}%`);
+      if (cur >= total) {
+        setTimeout(()=>{
+          $loadingBox.remove();
+
+        },1500);
+      }
     };
 
 
@@ -53,6 +59,9 @@ export default function () {
       }
     }
   })();
+
+
+
 
   loadingRender.init();
 }
