@@ -45,8 +45,8 @@ export default function () {
       if (cur >= total) {
         setTimeout(()=>{
           $loadingBox.remove();
-
-        },1500);
+          phoneRender.init();
+        },3000);
       }
     };
 
@@ -60,8 +60,17 @@ export default function () {
     }
   })();
 
+        /* PHONE */
+  const phoneRender = (function () {
+    const $phoneBox = $('.phoneBox');
+
+    return {
+      init() {
+        $phoneBox.css('display', 'block');
+      }
+    }
+  })();
 
 
-
-  loadingRender.init();
+  phoneRender.init();
 }
