@@ -18,6 +18,7 @@ export default function () {
     window.addEventListener('resize', computed, false);
   }
 
+  /* LOADING */
   const loadingRender = (function () {
     const $loadingBox = $('.loadingBox'),
       $run = $loadingBox.find('.run');
@@ -60,21 +61,21 @@ export default function () {
   })();
 
   /* PHONE */
-  const phoneRender = (function (Zepto) {
+  const phoneRender = (function () {
     const $phoneBox = $('.phoneBox'),
       $time = $phoneBox.find('.time'),
       $listen = $phoneBox.find('.listen'),
       $listenTouch = $listen.find('.move'),
       $details = $phoneBox.find('.details'),
-      $detailTouch = $details.find('.touch');
+      $detailsTouch = $details.find('.touch');
 
     const listemMusic = $('#listenMusic')[0],
-      detailsMucis = $('#detailsMusic')[0];
+      detailsMucic = $('#detailsMusic')[0];
 
     let musicTimer = null;
 
     //->detailsMusicFn:播放自我介绍的音频,并且计算音频播放的进度
-    function detailsMusicFn() {
+    const detailsMusicFn = function () {
       detailsMusic.play();
       musicTimer = window.setInterval(function () {
         var curTime = detailsMusic.currentTime,
@@ -90,36 +91,52 @@ export default function () {
           closePhone();
         }
       }, 1000);
+    };
 
-      //->closePhone:关闭当前的PHONE区域展示下一个区域
-      function closePhone() {
-        detailsMusic.pause();
-        $phone.css('transform', 'translateY(' + document.documentElement.clientHeight + 'px)').on('webkitTransitionEnd', function () {
-          $phone.css('display', 'none');
-        });
-        messageRender.init();
-      }
-    }
+    const listenTouch = function (ev) {
+      listenMusic.pause();
+      $listen.remove();
+      $details.css('transform', 'translateY(0)');
+      $time.css('display', 'block');
+      detailsMusicFn();
+    };
 
-    // const $phonePlan = $.callback();
-
-    const listenTouch = function () {
-      $listenTouch.click(function () {
-        console.log(this);
-        $listen.remove();
-        $details.css('transform', 'translateY(0)');
+    const closePhone = function (ev) {
+      detailsMusic.pause();
+      $phoneBox.css('transform', 'translateY(' + document.documentElement.clientHeight + 'px)').on('webkitTransitionEnd', function () {
+        $phoneBox.css('display', 'none');
       });
+      messageRender.init();
     };
 
     return {
       init() {
         $phoneBox.css('display', 'block');
-        listenTouch();
-        console.log(detailsMucis);
+        listenMusic.play();
+
+        //->绑定接听音频事件
+        $listenTouch.click(listenTouch);
+
+        //->给DETAILS中的TOUCH绑定单击事件
+        $detailsTouch.click(closePhone);
+      }
+    }
+  })();
+
+  /* MESSAGE */
+  const messageRender = (function () {
+
+    return {
+      init() {
+        console.log(this);
       }
     }
   })();
 
 
-  phoneRender.init();
-}
+
+
+
+
+  messageRender.init();
+};
