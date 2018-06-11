@@ -1,4 +1,5 @@
 export default function () {
+  /* REM响应式设置 */
   {
     function computed() {
       /*
@@ -14,7 +15,6 @@ export default function () {
     }
 
     computed();
-
     window.addEventListener('resize', computed, false);
   }
 
@@ -125,10 +125,12 @@ export default function () {
 
   /* MESSAGE */
   const messageRender = (function () {
+    const $messageBox = $('.messageBox');
+
 
     return {
       init() {
-        console.log(this);
+        $messageBox.css('display', 'block');
       }
     }
   })();
